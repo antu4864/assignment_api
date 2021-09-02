@@ -1,77 +1,29 @@
-import React from "react";
-import {useState} from "react";
-import {useEffect } from 'react';
+import React from 'react';
+import {Route, Switch} from "react-router-dom";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
+import Home from './Home';
+import Detail from './Detail';
+import Navbar from './Navbar';
 
 
-function App() {
-
-        const [users, setUsers] = useState([])
-
-        const getUsers= async()=>{
-          const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-         setUsers(await response.json());
-         //const data = await response.json();
-         //console.log(data);
-
-         
-     
-        }
-
-        useEffect(()=>{
-          getUsers();
-        }, []);
+const App= () => {
   return (
-   <>
 
-
-
-      
-     <div className="main">
-
-     <table className="table">
-    
-           <thead>
-             <tr>
-                <th>S.No</th>
-                <th>Title</th>
-                <th>Body</th>
-                
-               
-               
-             </tr>
-             </thead>
-
-
-             {
-                users.map((curr) => {
-                 return(
-                   
-                        
-                      <tbody>
-                          <tr>
-                      <td>{curr.id}</td>
-                            <td>{curr.title}</td>
-                            <td>{curr.body}</td>
-                           
-                          
-
-                          </tr>
-                      </tbody>
-                    
-                   
-                 )
-
-               })
-             }
-
-           
-      </table>
-
-       </div>
+<>
+    <div><Navbar/></div>
+    <div className="main">
   
+        <Switch>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/Detail/:name' component={Detail} />
+      
+        </Switch>
 
 
-   </>
+    </div>
+
+</>
   );
 }
 
